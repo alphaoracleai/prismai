@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PrismAI Enhance Images Instantly</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+    :root {
+      --bg1: #000000;
+      --card: #111111;
+      --accent: #7c3aed;
+      --muted: #888888;
+      --text: #f1f1f1;
+    }
+
+    body {
+      background: var(--bg1);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .glass:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    img.preview {
+      max-width: 100%;
+      border-radius: 16px;
+      transition: all 0.6s ease;
+    }
+
+    /* Floating gradient blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.2;
+      z-index: -1;
+      animation: float 15s infinite alternate;
+    }
+
+    .blob1 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #6d19ff, #06b6d4);
+      top: -100px;
+      left: -100px;
+      animation-duration: 20s;
+    }
+
+    .blob2 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #facc15, #f97316);
+      bottom: -100px;
+      right: -100px;
+      animation-duration: 25s;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(30px) translateX(20px); }
+      100% { transform: translateY(0) translateX(0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased">
+
+  <!-- Floating blobs -->
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <!-- Header -->
+  <header class="max-w-7xl mx-auto px-6 py-6 relative z-10">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#7c3aed] to-[#06b6d4]">
+          <strong class="text-black">AI</strong>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold">PrismAI</h1>
+          <p class="text-sm text-slate-400">Enhance and transform images automatically.</p>
+        </div>
+      </div>
+
+      <!-- Hamburger for mobile -->
+      <div class="sm:hidden">
+        <button id="menuBtn" class="focus:outline-none">
+          <svg class="w-6 h-6 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Desktop menu -->
+      <nav id="navMenu" class="hidden sm:flex items-center gap-3 text-sm">
+        <a href="#features" class="text-slate-300 hover:text-white transition">Features</a>
+        <a href="#demo" class="text-slate-300 hover:text-white transition">Demo</a>
+        <a href="#workflow" class="text-slate-300 hover:text-white transition">Workflow</a>
+        <a href="#pricing" class="text-slate-300 hover:text-white transition">Pricing</a>
+        <a href="#demo" class="px-4 py-2 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#06b6d4] text-black font-semibold hover:scale-105 transition">Try Now</a>
+      </nav>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="sm:hidden hidden mt-4 flex flex-col gap-2">
+      <a href="#features" class="text-slate-300 hover:text-white transition">Features</a>
+      <a href="#demo" class="text-slate-300 hover:text-white transition">Demo</a>
+      <a href="#workflow" class="text-slate-300 hover:text-white transition">Workflow</a>
+      <a href="#pricing" class="text-slate-300 hover:text-white transition">Pricing</a>
+      <a href="#demo" class="px-4 py-2 rounded-full bg-gradient-to-r from-[#7c3aed] to-[#06b6d4] text-black font-semibold hover:scale-105 transition">Try Now</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main class="max-w-6xl mx-auto px-6 pt-12 relative z-10">
+    <section class="relative overflow-hidden grid grid-cols-1 md:grid-cols-2 gap-10 items-center" id="demo">
+      <div class="fade-in">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Future-Ready Image Enhancement</h2>
+        <p class="text-slate-300 mb-6 text-lg">Upload your photo and watch AI automatically boost brightness, colors, contrast, and more. Instant results, zero settings.</p>
+        <div class="flex gap-3 flex-wrap">
+          <a href="#demo" class="px-5 py-3 rounded-lg bg-gradient-to-r from-[#7c3aed] to-[#06b6d4] text-black font-semibold hover:scale-105 transition">Try Live Demo</a>
+          <a href="#features" class="px-5 py-3 rounded-lg border border-slate-700 text-slate-200 hover:border-white transition">See Features</a>
+        </div>
+      </div>
+
+      <!-- Demo Box -->
+      <div class="glass p-6 rounded-2xl shadow-lg flex flex-col items-center fade-in w-full">
+        <label class="block text-sm text-slate-400 mb-2">Upload an image</label>
+        <input id="fileInput" type="file" accept="image/*" class="mb-4 w-full text-slate-200" />
+        <button id="enhanceBtn" class="px-4 py-2 rounded-md bg-gradient-to-r from-[#7c3aed] to-[#06b6d4] text-black font-semibold w-full mb-2 hover:scale-105 transition">Enhance AI</button>
+        <button id="resetBtn" class="px-4 py-2 rounded-md border border-slate-700 text-slate-200 w-full hover:border-white transition">Reset</button>
+        <img id="previewImg" class="preview mt-4" src="" alt="Preview" />
+        <p id="status" class="text-slate-400 text-sm mt-2 text-center">No image loaded</p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="mt-14 grid md:grid-cols-3 gap-6">
+      <div class="glass p-6 rounded-2xl fade-in">
+        <h3 class="text-lg font-semibold">Automatic Enhancement</h3>
+        <p class="text-slate-300 mt-2 text-sm">No settings needed. AI adjusts everything automatically for stunning results.</p>
+      </div>
+      <div class="glass p-6 rounded-2xl fade-in">
+        <h3 class="text-lg font-semibold">AI Color & Contrast</h3>
+        <p class="text-slate-300 mt-2 text-sm">Brightness, contrast, saturation, and hues are optimized dynamically.</p>
+      </div>
+      <div class="glass p-6 rounded-2xl fade-in">
+        <h3 class="text-lg font-semibold">Instant Preview</h3>
+        <p class="text-slate-300 mt-2 text-sm">Preview the enhanced image immediately after processing.</p>
+      </div>
+    </section>
+
+    <!-- Workflow -->
+    <section id="workflow" class="mt-20">
+      <h3 class="text-2xl font-bold text-center fade-in">How it works</h3>
+      <div class="mt-10 grid md:grid-cols-3 gap-6 text-center">
+        <div class="glass p-6 rounded-2xl fade-in">
+          <h4 class="font-semibold">1. Upload</h4>
+          <p class="text-slate-300 mt-2 text-sm">Select any image from your device.</p>
+        </div>
+        <div class="glass p-6 rounded-2xl fade-in">
+          <h4 class="font-semibold">2. Enhance</h4>
+          <p class="text-slate-300 mt-2 text-sm">Click “Enhance AI” and watch the magic happen automatically.</p>
+        </div>
+        <div class="glass p-6 rounded-2xl fade-in">
+          <h4 class="font-semibold">3. Download</h4>
+          <p class="text-slate-300 mt-2 text-sm">Save your enhanced image instantly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="mt-20">
+      <h3 class="text-2xl font-bold text-center fade-in">Pricing</h3>
+      <p class="text-center text-slate-400 mt-2 fade-in">Simple plans for everyone</p>
+      <div class="mt-10 grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="glass p-6 rounded-2xl text-center fade-in">
+          <h4 class="text-lg font-semibold">Free</h4>
+          <p class="text-slate-300 mt-2 text-sm">For casual users</p>
+          <p class="mt-4 text-3xl font-bold">$0</p>
+          <ul class="mt-4 text-sm text-slate-300 space-y-2">
+            <li>• 5 images / month</li>
+            <li>• Automatic enhancement</li>
+          </ul>
+          <a href="#demo" class="block mt-6 px-4 py-2 rounded-md bg-[#7c3aed] text-black font-semibold hover:scale-105 transition">Start Free</a>
+        </div>
+        <div class="glass p-6 rounded-2xl text-center border-2 border-[#7c3aed] fade-in">
+          <h4 class="text-lg font-semibold">Pro</h4>
+          <p class="text-slate-300 mt-2 text-sm">For creators & marketers</p>
+          <p class="mt-4 text-3xl font-bold">$12<span class="text-base text-slate-400">/mo</span></p>
+          <ul class="mt-4 text-sm text-slate-300 space-y-2">
+            <li>• Unlimited images</li>
+            <li>• High-resolution output</li>
+            <li>• Priority support</li>
+          </ul>
+          <a href="#demo" class="block mt-6 px-4 py-2 rounded-md bg-gradient-to-r from-[#7c3aed] to-[#06b6d4] text-black font-semibold hover:scale-105 transition">Upgrade</a>
+        </div>
+        <div class="glass p-6 rounded-2xl text-center fade-in">
+          <h4 class="text-lg font-semibold">Team</h4>
+          <p class="text-slate-300 mt-2 text-sm">For agencies & startups</p>
+          <p class="mt-4 text-3xl font-bold">$49<span class="text-base text-slate-400">/mo</span></p>
+          <ul class="mt-4 text-sm text-slate-300 space-y-2">
+            <li>• Everything in Pro</li>
+            <li>• Team collaboration</li>
+            <li>• Shared workspace</li>
+          </ul>
+          <a href="#demo" class="block mt-6 px-4 py-2 rounded-md bg-[#06b6d4] text-black font-semibold hover:scale-105 transition">Get Started</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center text-slate-400 py-8 fade-in">
+      <div class="max-w-3xl mx-auto">
+        <p>© 2025 AI Image Enhancer — Built for creators who want results fast.</p>
+        <p class="text-sm mt-2">Instant previews, automatic enhancements, and download-ready images.</p>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Hamburger toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Image enhancer logic
+    const fileInput = document.getElementById('fileInput');
+    const previewImg = document.getElementById('previewImg');
+    const enhanceBtn = document.getElementById('enhanceBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const status = document.getElementById('status');
+    let originalSrc = '';
+
+    fileInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = evt => {
+        previewImg.src = evt.target.result;
+        originalSrc = evt.target.result;
+        status.textContent = 'Image loaded';
+        previewImg.style.filter = '';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    enhanceBtn.addEventListener('click', () => {
+      if (!previewImg.src) { alert('Upload an image first!'); return; }
+      const brightness = (1 + Math.random() * 0.3).toFixed(2);
+      const contrast = (1 + Math.random() * 0.3).toFixed(2);
+      const saturate = (1 + Math.random() * 0.5).toFixed(2);
+      const hue = Math.floor(Math.random() * 360);
+      previewImg.style.filter = `brightness(${brightness}) contrast(${contrast}) saturate(${saturate}) hue-rotate(${hue}deg)`;
+      status.textContent = `Enhanced automatically! Brightness: ${brightness}, Contrast: ${contrast}, Saturation: ${saturate}, Hue: ${hue}°`;
+    });
+
+    resetBtn.addEventListener('click', () => {
+      previewImg.src = originalSrc;
+      previewImg.style.filter = '';
+      fileInput.value = '';
+      status.textContent = 'No image loaded';
+    });
+
+    // Scroll fade-in animation
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+    fadeElements.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
